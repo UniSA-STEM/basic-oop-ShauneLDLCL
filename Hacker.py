@@ -37,11 +37,23 @@ class Hacker:
             print("-- INSUFFICIENT FUNDS TO ACTIVATE RIG -- ")
 
     def byte_bomb(self):
-        self.__trace_level += 3
+        if self.__trace_level > 7:
+            print("!!! REDUCE TRACE !!!\n-- YOU HAVE BEEN EXPOSED --")
+        else:
+            self.__trace_level += 3
+            print("*** BYTE BOMB INITIATED ***")
     def neural_hack(self):
-        self.__trace_level += 2
+        if self.__trace_level > 7:
+            print("!!! REDUCE TRACE !!!\n-- YOU HAVE BEEN EXPOSED --")
+        else:
+            self.__trace_level += 2
+            print("*** NEURAL HACK CONNECTED ***")
     def data_spike(self):
-        self.__trace_level += 1
+        if self.__trace_level > 7:
+            print("!!! REDUCE TRACE !!!\n-- YOU HAVE BEEN EXPOSED --")
+        else:
+            self.__trace_level += 1
+            print("*** DATA SPIKE SUCCESSFUL ***")
 
     def ghost_protocol(self):
         self.__trace_level -= 3
@@ -51,6 +63,10 @@ class Hacker:
         self.__trace_level -= 1
 
 
+
+
+
+
 # Test method
 
 hacker = Hacker("AnonShortforAnonymous")
@@ -58,5 +74,17 @@ print(hacker.get_name())
 print(hacker.get_crypto_tokens())
 print(hacker.get_rig())
 hacker.acquire_rig()
+hacker.byte_bomb()
+hacker.neural_hack()
+hacker.neural_hack()
+hacker.neural_hack()
+hacker.byte_bomb()
+hacker.byte_bomb()
+hacker.byte_bomb()
+hacker.ghost_protocol()
+hacker.data_spike()
+print(hacker.get_trace_level())
+
+
 
 
