@@ -20,16 +20,25 @@ class Hacker:
     def get_rig(self):
         return self.__rig
 
-    def aquire_rig(self):
+    def acquire_rig(self):
         if self.__rig:
             print("Rig has already been activated.")
         elif self.__crypto_tokens >= 1:
             self.__crypto_tokens -= 1
             self.__rig = True
             print(f"Rig has been paid for with 1 Crypto_Token"
-                  f"\nCurrent Amount of CryptoTokens:{self.__crypto_tokens}"
-                  f"\n**Rig Activated**")
+                  f"\nCurrent Amount of CryptoTokens: {self.__crypto_tokens}"
+                  f"\n-- Rig Activated -- State of Rig: {self.__rig}")
         else:
             print("-- INSUFFICIENT FUNDS TO ACTIVATE RIG -- ")
+
+
+# Test method
+
+hacker = Hacker("AnonShortforAnonymous")
+print(hacker.get_name())
+print(hacker.get_crypto_tokens())
+print(hacker.get_rig())
+hacker.acquire_rig()
 
 
