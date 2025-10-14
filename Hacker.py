@@ -19,3 +19,17 @@ class Hacker:
         return self.__crypto_tokens
     def get_rig(self):
         return self.__rig
+
+    def aquire_rig(self):
+        if self.__rig:
+            print("Rig has already been activated.")
+        elif self.__crypto_tokens >= 1:
+            self.__crypto_tokens -= 1
+            self.__rig = True
+            print(f"Rig has been paid for with 1 Crypto_Token"
+                  f"\nCurrent Amount of CryptoTokens:{self.__crypto_tokens}"
+                  f"\n**Rig Activated**")
+        else:
+            print("-- INSUFFICIENT FUNDS TO ACTIVATE RIG -- ")
+
+
