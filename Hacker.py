@@ -13,3 +13,9 @@ class Hacker:
         self.__crypto_tokens = 1
         self.__rig = False
 
+    def get_name(self):
+        return self.__name
+    def get_crypto_tokens(self):
+        return self.__crypto_tokens
+    def get_rig(self):
+        return self.__rig
