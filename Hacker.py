@@ -12,7 +12,11 @@ class Hacker:
         self.__name = name
         self.__crypto_tokens = 1
         self.__rig = False
+        self.__trace_level = 0
 
+
+    def get_trace_level(self):
+        return self.__trace_level
     def get_name(self):
         return self.__name
     def get_crypto_tokens(self):
@@ -31,6 +35,20 @@ class Hacker:
                   f"\n-- Rig Activated -- State of Rig: {self.__rig}")
         else:
             print("-- INSUFFICIENT FUNDS TO ACTIVATE RIG -- ")
+
+    def byte_bomb(self):
+        self.__trace_level += 3
+    def neural_hack(self):
+        self.__trace_level += 2
+    def data_spike(self):
+        self.__trace_level += 1
+
+    def ghost_protocol(self):
+        self.__trace_level -= 3
+    def memory_wipe(self):
+        self.__trace_level -= 2
+    def corrupt_logs(self):
+        self.__trace_level -= 1
 
 
 # Test method
