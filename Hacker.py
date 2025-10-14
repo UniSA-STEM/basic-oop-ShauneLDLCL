@@ -10,6 +10,6 @@ This is my own work as defined by the University's Academic Misconduct Policy.
 class Hacker:
     def __init__(self, name):
         self.__name = name
-        self.__crypto_token = 1
+        self.__crypto_tokens = 1
         self.__rig = False
 
