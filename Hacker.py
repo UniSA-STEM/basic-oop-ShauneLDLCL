@@ -97,7 +97,7 @@ class Hacker:
             self.__trace_level += 1
             print("*** DATA SPIKE SUCCESSFUL ***")
 
-# test commit is working
+# test commit and push is working as certain commits are not committing to GitHub.
     def ghost_protocol(self):
         self.__trace_level -= 3
     def memory_wipe(self):
