@@ -97,6 +97,7 @@ class Hacker:
             self.__trace_level += 1
             print("*** DATA SPIKE SUCCESSFUL ***")
 
+# test commit is working
     def ghost_protocol(self):
         self.__trace_level -= 3
     def memory_wipe(self):
