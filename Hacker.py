@@ -10,7 +10,7 @@ This is my own work as defined by the University's Academic Misconduct Policy.
 class Hacker:
     """
     Represents a hacker with a crypto token, rig activation, and a trace system
-        that tracks digital exposure from performing high-risk actions.
+    that tracks digital exposure from performing high-risk actions.
 
         Attributes
         __name (str): The hacker's chosen alias or display name
@@ -24,11 +24,11 @@ class Hacker:
         """
         Initialise a new Hacker instance with default starting values.
 
-        Parameters
+        :parameter
         __name (str): A unique identifier or alias for the hacker.
         """
         self.__name = name
-        self.__crypto_tokens = 1 # Hacker inventory stores 1 crypto_token.
+        self.__crypto_tokens = 1 # Hacker inventory stores 1 CryptoToken.
         self.__rig = False # Rig begins inactive, until activated.
         self.__trace_level = 0 # Trace level baseline value is set to 0.
 
@@ -65,13 +65,27 @@ class Hacker:
         bool: True if the rig is active, False otherwise.
         """
         return self.__rig # Access and return whether the hacker's rig is activated (True/False).
-
+# Acquire rig method
     def acquire_rig(self):
-        if self.__rig:
+        """
+        Attempt to activate the hacker's rig by spending one CryptoToken.
+
+        Behaviour
+        If the rig is already active, prints a message and outputs nothing.
+        If at least one CryptoToken is available, deducts one token, activates the rig and changes the state of
+        the rig to True.
+        Otherwise, the hacker is notified of insufficient funds to activate the rig.
+
+        :parameter
+        None
+        :returns
+        None
+        """
+        if self.__rig: # Checks if there is already a rig and prevents multiple rig activations.
             print("Rig has already been activated.")
         elif self.__crypto_tokens >= 1:
-            self.__crypto_tokens -= 1
-            self.__rig = True
+            self.__crypto_tokens -= 1 # Deduct cost sof rig activation.
+            self.__rig = True # Activate rig.
             print(f"Rig has been paid for with 1 Crypto_Token"
                   f"\nCurrent Amount of CryptoTokens: {self.__crypto_tokens}"
                   f"\n-- Rig Activated -- State of Rig: {self.__rig}")
