@@ -93,33 +93,50 @@ class Hacker:
             print("-- INSUFFICIENT FUNDS TO ACTIVATE RIG -- ")
 
     def byte_bomb(self):
-        if self.__trace_level > 7:
+        if self.__trace_level >= 7:
             print("!!! REDUCE TRACE !!!\n-- YOU HAVE BEEN EXPOSED --")
-        else:
+        elif self.__trace_level < 7:
             self.__trace_level += 3
             print("*** BYTE BOMB INITIATED ***")
+            if self.__trace_level == 7:
+                self.__crypto_tokens += 1
+                print(f"Transferring CryptoTokens into inventory: {self.__crypto_tokens}")
+            elif self.__trace_level > 7:
+                print("!!! REDUCE TRACE !!!\n-- YOU HAVE BEEN EXPOSED --")
+
     def neural_hack(self):
-        if self.__trace_level > 7:
+        if self.__trace_level >= 7:
             print("!!! REDUCE TRACE !!!\n-- YOU HAVE BEEN EXPOSED --")
-        else:
+        elif self.__trace_level < 7:
             self.__trace_level += 2
             print("*** NEURAL HACK CONNECTED ***")
-    def data_spike(self):
-        if self.__trace_level > 7:
-            print("!!! REDUCE TRACE !!!\n-- YOU HAVE BEEN EXPOSED --")
-        else:
-            self.__trace_level += 1
-            print("*** DATA SPIKE SUCCESSFUL ***")
+            if self.__trace_level == 7:
+                self.__crypto_tokens += 1
+                print(f"Transferring CryptoTokens into inventory: {self.__crypto_tokens}")
+            elif self.__trace_level > 7:
+                print("!!! REDUCE TRACE !!!\n-- YOU HAVE BEEN EXPOSED --")
 
-# test commit and push is working as certain commits are not committing to GitHub.
+        # elif self.__trace_level < 7:
+        #     self.__trace_level += 2
+        #     print("*** NEURAL HACK CONNECTED ***")
+    def data_attack(self):
+        if self.__trace_level >= 7:
+            print("!!! REDUCE TRACE !!!\n-- YOU HAVE BEEN EXPOSED --")
+        elif self.__trace_level < 7:
+            self.__trace_level += 1
+            print("*** DATA ATTACK SUCCESSFULL ***")
+            if self.__trace_level == 7:
+                self.__crypto_tokens += 1
+                print(f"Transferring CryptoTokens into inventory: {self.__crypto_tokens}")
+            elif self.__trace_level > 7:
+                print("!!! REDUCE TRACE !!!\n-- YOU HAVE BEEN EXPOSED --")
+
     def ghost_protocol(self):
         self.__trace_level -= 3
     def memory_wipe(self):
         self.__trace_level -= 2
     def corrupt_logs(self):
         self.__trace_level -= 1
-
-
 
 
 
@@ -131,15 +148,28 @@ print(hacker.get_name())
 print(hacker.get_crypto_tokens())
 print(hacker.get_rig())
 hacker.acquire_rig()
-hacker.byte_bomb()
-hacker.neural_hack()
-hacker.neural_hack()
-hacker.neural_hack()
-hacker.byte_bomb()
-hacker.byte_bomb()
-hacker.byte_bomb()
+hacker.byte_bomb() # 3
+hacker.neural_hack() # 2
+hacker.neural_hack() # 2
+hacker.neural_hack() # 2
+print(hacker.get_trace_level())
+print(hacker.get_crypto_tokens())
+hacker.ghost_protocol() # - 3
+hacker.corrupt_logs() # - 1
+hacker.neural_hack() # 2
+hacker.neural_hack() # 2
+print(20*"-")
+print(hacker.get_trace_level())
+print(hacker.get_crypto_tokens())
+hacker.byte_bomb() # 3
 hacker.ghost_protocol()
-hacker.data_spike()
+print(hacker.get_trace_level())
+hacker.byte_bomb()
+hacker.byte_bomb()
+hacker.byte_bomb()
+hacker.byte_bomb()
+hacker.data_attack()
+hacker.byte_bomb()
 print(hacker.get_trace_level())
 
 
