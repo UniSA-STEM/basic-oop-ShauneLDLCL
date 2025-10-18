@@ -24,5 +24,22 @@ print("Hacker Name: ", hacker.get_name())
 print("CryptoTokens: ", hacker.get_crypto_tokens())
 print("Rig Activated: ", hacker.get_rig())
 print("Trace Level: ", hacker.get_trace_level())
+print(20*"___")
 
+# 3. Activate the rig using the Hacker's CryptoTokens.
+print("*---- RIG ACTIVATION ----*")
+hacker.acquire_rig()
+print("Rig Activated: ", hacker.get_rig())
+print("Remaining Tokens: ", hacker.get_crypto_tokens())
+print(20*"___")
 
+# 4. Execute hacking operations that increase trace level and transfer CryptoTokens to inventory.
+print("*---- RISKY HACKING ACTIONS ----*")
+hacker.byte_bomb()
+hacker.neural_hack()
+hacker.server_attack()
+hacker.server_attack()
+print("Trace Level after actions: ", hacker.get_trace_level())
+hacker.server_attack()
+print("Trace Level after actions: ", hacker.get_trace_level())
+print("CryptoTokens after actions: ", hacker.get_crypto_tokens())
