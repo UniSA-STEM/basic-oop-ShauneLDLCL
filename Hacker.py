@@ -94,42 +94,48 @@ class Hacker:
 
     def byte_bomb(self):
         if self.__trace_level >= 7:
+            self.__trace_level += 3
             print("!!! REDUCE TRACE !!!\n-- YOU HAVE BEEN EXPOSED --")
         elif self.__trace_level < 7:
             self.__trace_level += 3
             print("*** BYTE BOMB INITIATED ***")
             if self.__trace_level == 7:
                 self.__crypto_tokens += 1
-                print(f"Transferring CryptoTokens into inventory: {self.__crypto_tokens}")
-            elif self.__trace_level > 7:
-                print("!!! REDUCE TRACE !!!\n-- YOU HAVE BEEN EXPOSED --")
+                print(f"<<< Transferring CryptoTokens into inventory: {self.__crypto_tokens} >>>")
+            # elif self.__trace_level > 7:
+            #     self.__trace_level += 3
+            #     print("!!! REDUCE TRACE !!!\n-- YOU HAVE BEEN EXPOSED --")
 
     def neural_hack(self):
         if self.__trace_level >= 7:
+            self.__trace_level += 2
             print("!!! REDUCE TRACE !!!\n-- YOU HAVE BEEN EXPOSED --")
         elif self.__trace_level < 7:
             self.__trace_level += 2
             print("*** NEURAL HACK CONNECTED ***")
             if self.__trace_level == 7:
                 self.__crypto_tokens += 1
-                print(f"Transferring CryptoTokens into inventory: {self.__crypto_tokens}")
-            elif self.__trace_level > 7:
-                print("!!! REDUCE TRACE !!!\n-- YOU HAVE BEEN EXPOSED --")
+                print(f"<<< Transferring CryptoTokens into inventory: {self.__crypto_tokens} >>>")
+            # elif self.__trace_level > 7:
+            #     self.__trace_level += 2
+            #     print("!!! REDUCE TRACE !!!\n-- YOU HAVE BEEN EXPOSED --")
 
         # elif self.__trace_level < 7:
         #     self.__trace_level += 2
         #     print("*** NEURAL HACK CONNECTED ***")
-    def data_attack(self):
+    def server_attack(self):
         if self.__trace_level >= 7:
+            self.__trace_level += 1
             print("!!! REDUCE TRACE !!!\n-- YOU HAVE BEEN EXPOSED --")
         elif self.__trace_level < 7:
             self.__trace_level += 1
-            print("*** DATA ATTACK SUCCESSFULL ***")
+            print("*** SERVER ATTACK SUCCESSFULL ***")
             if self.__trace_level == 7:
                 self.__crypto_tokens += 1
-                print(f"Transferring CryptoTokens into inventory: {self.__crypto_tokens}")
-            elif self.__trace_level > 7:
-                print("!!! REDUCE TRACE !!!\n-- YOU HAVE BEEN EXPOSED --")
+                print(f"<<< Transferring CryptoTokens into inventory: {self.__crypto_tokens} >>>")
+            # elif self.__trace_level > 7:
+            #     self.__trace_level += 1
+            #     print("!!! REDUCE TRACE !!!\n-- YOU HAVE BEEN EXPOSED --")
 
     def ghost_protocol(self):
         self.__trace_level -= 3
@@ -138,39 +144,43 @@ class Hacker:
     def corrupt_logs(self):
         self.__trace_level -= 1
 
-
+    def data_spikes(self):
+        rig.get_data_spikes()
+        print(rig.get_data_spikes())
 
 
 # Test method
 
-hacker = Hacker("AnonShortforAnonymous")
-print(hacker.get_name())
-print(hacker.get_crypto_tokens())
-print(hacker.get_rig())
-hacker.acquire_rig()
-hacker.byte_bomb() # 3
-hacker.neural_hack() # 2
-hacker.neural_hack() # 2
-hacker.neural_hack() # 2
-print(hacker.get_trace_level())
-print(hacker.get_crypto_tokens())
-hacker.ghost_protocol() # - 3
-hacker.corrupt_logs() # - 1
-hacker.neural_hack() # 2
-hacker.neural_hack() # 2
-print(20*"-")
-print(hacker.get_trace_level())
-print(hacker.get_crypto_tokens())
-hacker.byte_bomb() # 3
-hacker.ghost_protocol()
-print(hacker.get_trace_level())
-hacker.byte_bomb()
-hacker.byte_bomb()
-hacker.byte_bomb()
-hacker.byte_bomb()
-hacker.data_attack()
-hacker.byte_bomb()
-print(hacker.get_trace_level())
+# hacker = Hacker("AnonShortforAnonymous")
+# print(hacker.get_name())
+# print(hacker.get_crypto_tokens())
+# print(hacker.get_rig())
+# hacker.acquire_rig()
+# hacker.byte_bomb() # 3
+# hacker.neural_hack() # 2
+# hacker.neural_hack() # 2
+# hacker.neural_hack() # 2
+# print(hacker.get_trace_level())
+# print(hacker.get_crypto_tokens())
+# hacker.ghost_protocol() # - 3
+# hacker.corrupt_logs() # - 1
+# hacker.neural_hack() # 2
+# hacker.neural_hack() # 2
+# print(20*"-")
+# print(hacker.get_trace_level())
+# print(hacker.get_crypto_tokens())
+# hacker.byte_bomb() # 3
+# hacker.ghost_protocol()
+# print(hacker.get_trace_level())
+# print(hacker.get_trace_level())
+# hacker.byte_bomb()
+# hacker.byte_bomb()
+# hacker.byte_bomb()
+# hacker.byte_bomb()
+# hacker.server_attack()
+# hacker.byte_bomb()
+# print(hacker.get_trace_level())
+# print(hacker.data_spikes())
 
 
 
