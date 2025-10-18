@@ -65,6 +65,18 @@ class Hacker:
         bool: True if the rig is active, False otherwise.
         """
         return self.__rig # Access and return whether the hacker's rig is activated (True/False).
+
+    # Setter (Mutator) methods
+
+    def set_trace_level(self, trace_level):
+        if not isinstance(trace_level, int):
+            raise TypeError("Trace level must be an integer value.")
+        if trace_level < 0:
+            raise ValueError("Trace level cannot go below the baseline value of 0.")
+        self.__trace_level = trace_level
+        if self.__trace_level == 0:
+            print("Trace level has successfully reached 0 and you are impossible to detect.")
+
 # Acquire rig method
     def acquire_rig(self):
         """
@@ -138,11 +150,11 @@ class Hacker:
             #     print("!!! REDUCE TRACE !!!\n-- YOU HAVE BEEN EXPOSED --")
 
     def ghost_protocol(self):
-        self.__trace_level -= 3
+        self.set_trace_level(self.__trace_level - 3)
     def memory_wipe(self):
-        self.__trace_level -= 2
+        self.set_trace_level(self.__trace_level - 2)
     def corrupt_logs(self):
-        self.__trace_level -= 1
+        self.set_trace_level(self.__trace_level - 1)
 
     def data_spikes(self):
         rig.get_data_spikes()
