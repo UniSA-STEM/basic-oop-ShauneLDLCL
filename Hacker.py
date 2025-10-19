@@ -69,6 +69,19 @@ class Hacker:
     # Setter (Mutator) methods
 
     def set_trace_level(self, trace_level):
+        """
+        Set the hacker's trace level with validation.
+
+        Behaviour:
+        Validates that the provided trace_level is an int.
+        Prevents the trace level from being set below zero.
+        Prints a notification if the trace level reaches zero (Hacker is safe/undetected).
+
+        :parameter trace_level:
+        trace_level (int): The new trace level value to assign.
+        :returns:
+        None
+        """
         if not isinstance(trace_level, int):
             raise TypeError("Trace level must be an integer value.")
         if trace_level < 0:
