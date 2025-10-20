@@ -6,7 +6,7 @@ ID: 110444251
 Username: legsd001
 This is my own work as defined by the University's Academic Misconduct Policy.
 """
-
+from Rig import Rig
 class Hacker:
     """
     Represents a hacker with a crypto token, rig activation, and a trace system
@@ -29,7 +29,7 @@ class Hacker:
         """
         self.__name = name
         self.__crypto_tokens = 1 # Hacker inventory stores 1 CryptoToken.
-        self.__rig = False # Rig begins inactive, until activated.
+        self.__rig = None # Rig begins inactive, until activated.
         self.__trace_level = 0 # Trace level baseline value is set to 0.
 
 # Accessor (Getter) methods
@@ -91,7 +91,7 @@ class Hacker:
             print("Trace level has successfully reached 0 and you are impossible to detect.")
 
 # Acquire rig method
-    def acquire_rig(self):
+    def acquire_rig(self, rig):
         """
         Attempt to activate the hacker's rig by spending one CryptoToken.
 
@@ -106,11 +106,14 @@ class Hacker:
         :returns
         None
         """
-        if self.__rig: # Checks if there is already a rig and prevents multiple rig activations.
-            print("Rig has already been activated.")
+        if isinstance(self.__rig, Rig): # Checks if there is already a rig and prevents multiple rig activations.
+            print("Rig has already been activated and linked.")
+        elif not isinstance(rig, Rig):
+            print("Provided object is not a valid Rig. Cannot link.")
         elif self.__crypto_tokens >= 1:
             self.__crypto_tokens -= 1 # Deduct cost sof rig activation.
-            self.__rig = True # Activate rig.
+            self.__rig = rig
+            print(f"Rig has successfully linked and activated for {self.__name}")
             print(f"Rig has been paid for with 1 Crypto_Token"
                   f"\nCurrent Amount of CryptoTokens: {self.__crypto_tokens}"
                   f"\n-- Rig Activated -- State of Rig: {self.__rig}")
@@ -169,9 +172,14 @@ class Hacker:
     def corrupt_logs(self):
         self.set_trace_level(self.__trace_level - 1)
 
-    def data_spikes(self):
-        rig.get_data_spikes()
-        print(rig.get_data_spikes())
+    def launch_data_attack(self, target_rig):
+        if not isinstance(self.__rig, Rig):
+            print ("--- CANNOT LAUNCH ATTACK: NO ACTIVE RIG ---")
+            return "--- ATTACK FAILED: NO ACTIVE RIG ---"
+        print(f"{self.__name} IS LAUNCHING A DATA SPIKE AT {target_rig.get_name()}")
+        self.__rig.launch_data_spikes()
+        return "--- ATTACK INITIATED SUCCESSFULLY ---"
+
 
 
 # Test method
