@@ -28,8 +28,8 @@ print(20*"___")
 
 # 3. Activate the rig using the Hacker's CryptoTokens.
 print("*---- RIG ACTIVATION ----*")
-hacker.acquire_rig()
-print("Rig Activated: ", hacker.get_rig())
+hacker.acquire_rig(rig)
+print(f"Rig Activated: {'ACTIVE' if hacker.is_rig_active() else 'INACTIVE'}")
 print("Remaining Tokens: ", hacker.get_crypto_tokens())
 print(20*"___")
 
@@ -39,10 +39,12 @@ hacker.byte_bomb()
 hacker.neural_hack()
 hacker.server_attack()
 hacker.server_attack()
+# hacker.neural_hack() - # Testing CryptoToken reward handling.
 print("Trace Level after risky actions: ", hacker.get_trace_level())
 hacker.server_attack()
 print("Trace Level after risky actions: ", hacker.get_trace_level())
 print("CryptoTokens after risky actions: ", hacker.get_crypto_tokens())
+print(20*"___")
 
 # 5. Execute concealment operations to reduce trace level.
 print("*---- CONCEALMENT ACTIONS ----*")
@@ -50,6 +52,18 @@ hacker.corrupt_logs()
 hacker.memory_wipe()
 hacker.ghost_protocol()
 hacker.corrupt_logs()
-hacker.corrupt_logs()
-# hacker.corrupt_logs() # Testing and debugging ValueError
+# hacker.corrupt_logs() - # Testing and debugging ValueError.
 print("Trace level after concealment actions: ", hacker.get_trace_level())
+print(20*"___")
+
+# 6. Demonstrate Rig storage functionality.
+print("*---- RIG STORAGE TEST ----*")
+rig.store_data_spikes()
+print("Rig Storage Contents: ", rig.get_storage())
+print("Remaining Data Spikes on Rig: ", rig.get_data_spikes())
+print(20*"___")
+
+# 7. Demonstrate attack interaction between Hacker and Rig.
+print("*---- HACKER|RIG ATTACK INTERACTION ----*")
+print(hacker.launch_data_attack(rig))
+print(20*"___")
