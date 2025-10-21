@@ -7,6 +7,7 @@ Username: legsd001
 This is my own work as defined by the University's Academic Misconduct Policy.
 """
 from Rig import Rig
+from Asset import Asset
 class Hacker:
     """
     Represents a hacker with a crypto token, rig activation, and a trace system
@@ -69,8 +70,14 @@ class Hacker:
 
     # Setter (Mutator) methods
 
-    def has_crypto_tokens(self, token):
-        self.__crypto_tokens = token
+    def set_crypto_tokens(self, tokens):
+        self.__crypto_tokens = tokens
+
+    def deduct_crypto_tokens(self, amount):
+        if self.__crypto_tokens >= amount:
+            self.__crypto_tokens -= amount
+        else:
+            print("Insufficient CryptoTokens.")
 
     def set_trace_level(self, trace_level):
         """
@@ -95,7 +102,7 @@ class Hacker:
             print("Trace level has successfully reached 0 and you are impossible to detect.")
 
 #     Property
-    crypto_tokens = property(get_crypto_tokens, has_crypto_tokens)
+    crypto_tokens = property(get_crypto_tokens, set_crypto_tokens())
 
 # Acquire rig method
     def acquire_rig(self, rig):
@@ -118,7 +125,7 @@ class Hacker:
         elif not isinstance(rig, Rig):
             print("Provided object is not a valid Rig. Cannot link.")
         elif self.__crypto_tokens >= 1:
-            self.__crypto_tokens -= 1 # Deduct cost sof rig activation.
+            self.deduct_crypto_tokens(1)
             self.__rig = rig
             print(f"Rig has successfully linked and activated for {self.__name}")
             print(f"Rig has been paid for with 1 Crypto_Token"
