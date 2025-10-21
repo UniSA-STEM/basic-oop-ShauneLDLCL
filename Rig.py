@@ -26,6 +26,20 @@ class Rig:
     def get_storage(self):
         return list(self.__storage)
 
+    def is_broken(self):
+        return self.__broken_state
+
+    def get_upgrade_level(self):
+        return self.__upgrade_level
+
+    def take_damage(self):
+        if self.__broken_state:
+            print(f"Rig {self.__name} is already broken.")
+        else:
+            self.__damage_counter += 1
+            print(f"Rig {self.__name} took damage! Current Damage: {self.__damage_counter}")
+
+
     def store_data_spikes(self):
         if self.__data_spikes > 0:
             for i in range(self.__data_spikes):
@@ -54,6 +68,7 @@ class Rig:
 
 
 
+
     # def launch_data_spikes(self):
 
 
@@ -63,8 +78,9 @@ class Rig:
 
 
 
-# rig = Rig("pc_pc(politicallycorrect_pc)")
-# print(rig.get_name())
+rig = Rig("pc_pc(politicallycorrect_pc)")
+print(rig.get_name())
+rig.take_damage()
 # rig.store_data_spikes()
 # print(rig.check_storage())
 # print("---")
