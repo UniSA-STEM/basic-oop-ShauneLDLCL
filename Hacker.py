@@ -57,16 +57,20 @@ class Hacker:
         int: The total number of CryptoTokens in hacker's inventory.
         """
         return self.__crypto_tokens # Access and return current amount of CryptoTokens possessed by the hacker.
+
     def get_rig(self):
         """
         Return the rig's activation state.
 
         :returns:
-        bool: True if the rig is active, False otherwise.
+        Rig | None
         """
         return self.__rig # Access and return whether the hacker's rig is activated (True/False).
 
     # Setter (Mutator) methods
+
+    def has_crypto_tokens(self, token):
+        self.__crypto_tokens = token
 
     def set_trace_level(self, trace_level):
         """
@@ -89,6 +93,9 @@ class Hacker:
         self.__trace_level = trace_level
         if self.__trace_level == 0:
             print("Trace level has successfully reached 0 and you are impossible to detect.")
+
+#     Property
+    crypto_tokens = property(get_crypto_tokens, has_crypto_tokens)
 
 # Acquire rig method
     def acquire_rig(self, rig):
@@ -116,9 +123,20 @@ class Hacker:
             print(f"Rig has successfully linked and activated for {self.__name}")
             print(f"Rig has been paid for with 1 Crypto_Token"
                   f"\nCurrent Amount of CryptoTokens: {self.__crypto_tokens}"
-                  f"\n-- Rig Activated -- State of Rig: {self.__rig}")
+                  f"\n-- Rig Activated -- State of Rig: {isinstance(self.__rig, Rig)}")
         else:
             print("-- INSUFFICIENT FUNDS TO ACTIVATE RIG -- ")
+
+    def is_rig_active(self):
+        return self.__rig
+
+    def repair_linked_rig(self):
+        if not self.__rig:
+            print("No rig linked to repair.")
+        else:
+            self.__rig.repair_rig(self)
+
+
 
     def byte_bomb(self):
         if self.__trace_level >= 7:
@@ -180,6 +198,11 @@ class Hacker:
         self.__rig.launch_data_spikes()
         return "--- ATTACK INITIATED SUCCESSFULLY ---"
 
+    def upgrade_rig(self):
+        if not self.__rig:
+            print("No rig linked to upgrade.")
+        else:
+            self.__rig.upgrade_rig(self)
 
 
 # Test method
