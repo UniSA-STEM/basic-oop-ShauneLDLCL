@@ -7,7 +7,6 @@ Username: <username>
 This is my own work as defined by the University's Academic Misconduct Policy.
 """
 
-
 class Rig:
     def __init__(self, name):
         self.__name = name
@@ -28,6 +27,12 @@ class Rig:
 
     def is_broken(self):
         return self.__broken_state
+
+    def set_broken_state(self, broken):
+        self.__broken_state = broken
+
+    def set_damage_counter(self, counter):
+        self.__damage_counter = counter
 
     def get_upgrade_level(self):
         return self.__upgrade_level
@@ -64,6 +69,16 @@ class Rig:
         else:
             print("~~~ NO DATA SPIKES AVAILABLE!!! ~~~")
 
+    def repair_rig(self, hacker):
+        if not self.__broken_state:
+            print(f"Rig {self.__name} does not require repairs.")
+        elif hacker.get_crypto_tokens() >= 1:
+            hacker.crypto_tokens = hacker.get_crypto_tokens() - 1
+            self.__damage_counter = 0
+            self.__broken_state = False
+            print(f"Rig {self.__name} has been repaired with 1 CryptoToken.")
+        else:
+            print("Insufficient CryptoTokens to repair rig.")
 
 
 
@@ -91,6 +106,6 @@ rig.take_damage()
 # rig.launch_data_spikes()
 # print(rig.check_storage())
 
-# # rig.repair_rig()
+
 
 
