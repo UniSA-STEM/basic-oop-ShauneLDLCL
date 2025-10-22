@@ -199,12 +199,18 @@ class Hacker:
         self.set_trace_level(self.__trace_level - 1)
 
     def launch_data_attack(self, target_rig):
-        if not isinstance(self.__rig, Rig):
+        if not self.__rig:
             print ("--- CANNOT LAUNCH ATTACK: NO ACTIVE RIG ---")
             return "--- ATTACK FAILED: NO ACTIVE RIG ---"
+        if not isinstance(target_rig, Rig):
+            print("--- CANNOT LAUNCH ATTACK: TARGET IS NOT A RIG ---")
+            return "--- ATTACK FAILED: INVALID TARGET ---"
         print(f"{self.__name} IS LAUNCHING A DATA SPIKE AT {target_rig.get_name()}")
-        self.__rig.launch_data_spikes()
-        return "--- ATTACK INITIATED SUCCESSFULLY ---"
+        spike_launched = self.__rig.launch_data_spikes()
+        if spike_launched:
+            target_rig.take_damage()
+            return "--- ATTACK INITATED SUCCESSFULLY ---"
+        return "--- ATTACK FAILED: NO SPIKES ---"
 
     def upgrade_rig(self):
         if not self.__rig:
@@ -244,6 +250,8 @@ class Hacker:
         hardware_patch = Asset("Hardware Patch", "Used to upgrade rigs.")
         self.add_asset(hardware_patch)
         print(f"{self.__name} obtained a Hardware Patch")
+
+
 
 
 
