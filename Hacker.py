@@ -85,9 +85,9 @@ class Hacker:
         Set the hacker's trace level with validation.
 
         Behaviour:
-        Validates that the provided trace_level is an int.
-        Prevents the trace level from being set below zero.
-        Prints a notification if the trace level reaches zero (Hacker is safe/undetected).
+        - Validates that the provided trace_level is an int.
+        - Prevents the trace level from being set below zero.
+        - Prints a notification if the trace level reaches zero (Hacker is safe/undetected).
 
         :parameter trace_level:
         trace_level (int): The new trace level value to assign.
@@ -103,7 +103,7 @@ class Hacker:
             print("Trace level has successfully reached 0 and you are impossible to detect.")
 
 #     Property
-    crypto_tokens = property(get_crypto_tokens, set_crypto_tokens())
+    crypto_tokens = property(get_crypto_tokens, set_crypto_tokens)
 
 # Acquire rig method
     def acquire_rig(self, rig):
@@ -223,7 +223,7 @@ class Hacker:
         Add an Asset istance to hacker inventory.
         """
         if isinstance(asset, Asset):
-            self.__inventory.append[asset]
+            self.__inventory.append(asset)
             print(f"{asset.get_name()} added to inventory.")
         else:
             print("Only Asset instances can be added to inventory.")
@@ -243,6 +243,62 @@ class Hacker:
         self.__inventory = new_inventory
         return available_asset
 
+    def find_asset(self, asset_name):
+        """
+        Locate an asset by name in inventory.
+        :parameters asset_name:
+        asset_name: Asset name to search for in inventory.
+        :returns:
+        The Asset if found, otherwise None.
+        """
+        selected_asset = None
+        for asset in self.__inventory:
+            if selected_asset is None and asset.get_name() == asset_name:
+                selected_asset = asset
+        return selected_asset
+
+
+    def encrypt_asset(self, asset_name):
+        """
+        Encrypt a named asset in the hacker inventory using a Security Chip.
+        :parameters asset_name:
+        asset_name: Name of the asset to encrypt
+        Behaviour:
+        - Consumes one "Security Chip" from inventory.
+        - If the asset is found, encrypts it.
+        """
+        security_chip = self.remove_asset_by_name("Security Chip")
+        if security_chip is None:
+            print(f"No asset named {asset_name} found in inventory.")
+        else:
+            assets = self.find_asset(asset_name)
+            if assets is None:
+                print(f"No Asset named: {asset_name} found in inventory.")
+                self.add_asset(security_chip)
+            else:
+                assets.encrypt()
+                print(f"{asset_name} encrypted successfully.")
+
+    def decrypt_asset(self, asset_name):
+        """
+        Decrypt a named asset in the hacker inventory using a Security Chip.
+        :parameter asset_name:
+        asset_name: Name of the asset to decrypt
+        """
+        assets = self.find_asset(asset_name)
+        if assets is None:
+            print(f"No asset named: {asset_name} found in inventory.")
+        else:
+            if not assets.is_encrypted():
+                print (f"{asset_name} is already decrypted.")
+            else:
+                security_chip = self.remove_asset_by_name("Security Chip")
+                if security_chip is None:
+                    print("No Security Chip available to decrypt.")
+                else:
+                    asset.decrypt()
+                    print(f"{asset_name} decrypted successfully.")
+
     def hardware_patch(self):
         """
         Acquire a Hardware Patch (Hacker domain) abd place it in inventory.
@@ -250,45 +306,6 @@ class Hacker:
         hardware_patch = Asset("Hardware Patch", "Used to upgrade rigs.")
         self.add_asset(hardware_patch)
         print(f"{self.__name} obtained a Hardware Patch")
-
-
-
-
-
-
-
-# Test method
-
-# hacker = Hacker("AnonShortforAnonymous")
-# print(hacker.get_name())
-# print(hacker.get_crypto_tokens())
-# print(hacker.get_rig())
-# hacker.acquire_rig()
-# hacker.byte_bomb() # 3
-# hacker.neural_hack() # 2
-# hacker.neural_hack() # 2
-# hacker.neural_hack() # 2
-# print(hacker.get_trace_level())
-# print(hacker.get_crypto_tokens())
-# hacker.ghost_protocol() # - 3
-# hacker.corrupt_logs() # - 1
-# hacker.neural_hack() # 2
-# hacker.neural_hack() # 2
-# print(20*"-")
-# print(hacker.get_trace_level())
-# print(hacker.get_crypto_tokens())
-# hacker.byte_bomb() # 3
-# hacker.ghost_protocol()
-# print(hacker.get_trace_level())
-# print(hacker.get_trace_level())
-# hacker.byte_bomb()
-# hacker.byte_bomb()
-# hacker.byte_bomb()
-# hacker.byte_bomb()
-# hacker.server_attack()
-# hacker.byte_bomb()
-# print(hacker.get_trace_level())
-# print(hacker.data_spikes())
 
 
 
