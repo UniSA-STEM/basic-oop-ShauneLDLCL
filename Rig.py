@@ -157,9 +157,51 @@ class Rig:
                 self.__storage = remaining_assets
                 print(f"{transferred_assets} asset(s) extracted from {self.__name}.")
 
+    def store_asset(self, asset):
+        """
+        Store an asset in the rig's storage.
+        Behaviour:
+        - Only allows Asset instances to be stored.
+        - Encrypted assets cannot be stored.
+        - Adds the asset to private storage if valid.
+        :parameter asset:
+        asset: The asset object to store.
+        :returns:
+        None
+        """
+        if not isinstance(asset, Asset):
+            print("Only Asset instances can be stored in rig storage.")
+        elif asset.is_encrypted():
+            print(f"{asset.get_name()} is encrypted and cannot be stored.")
+        else:
+            self.__storage.append(asset)
+            print(f"{asset.get_name()} has been stored in {self.__name}.")
 
+    def release_asset(self, asset_name):
+        """
+        Remove and return an asset by name from the rig's storage.
 
-
-
+        Behaviour:
+        - Searches rig storage for the first asset with the specified name.
+        - Returns the asset and removes it from rig storage.
+        - Returns None if not found.
+        :parameter asset_name:
+        str: The name of the asset to retrieve.
+        :returns:
+        Asset | None: The removed asset, or None if not found.
+        """
+        released_asset = None
+        updated_storage = []
+        for asset in self.__storage:
+            if released_asset is None and isinstance(asset, Asset) and asset.get_name() == asset_name:
+                released_asset = asset
+            else:
+                updated_storage.append(asset)
+        self.__storage = updated_storage
+        if released_asset:
+            print(f"{released_asset.get_name()} has been released from {self.__name}.")
+        else:
+            print(f"No asset named {asset_name} found in {self.__name}.")
+        return released_asset
 
 
