@@ -279,6 +279,7 @@ class Hacker:
                 assets.encrypt()
                 print(f"{asset_name} encrypted successfully.")
 
+
     def decrypt_asset(self, asset_name):
         """
         Decrypt a named asset in the hacker inventory using a Security Chip.
@@ -298,6 +299,36 @@ class Hacker:
                 else:
                     asset.decrypt()
                     print(f"{asset_name} decrypted successfully.")
+
+    def store_asset_in_rig(self, asset_name):
+        """
+        Move an asset from hacker inventory to linked rig storage.
+        :param asset_name:
+        asset_name: Name of the asset to move.
+        """
+        if not self.__rig:
+            print("No rig linked. Cannot store asset.")
+        else:
+            asset = self.remove_asset_by_name(asset_name)
+            if asset:
+                self.__rig.store_asset(asset)
+            else:
+                print(f"No asset named {asset_name} found in inventory.")
+
+    def retrieve_asset_from_rig(self, asset_name):
+        """
+        Retrieve an asset from rig storage back to hacker inventory.
+        :parameter asset_name:
+        asset_name: Name of the asset to retrieve.
+        """
+        if not self.__rig:
+            print("No rig linked. Cannot retrieve asset.")
+        else:
+            retrieved_asset = self.__rig.release_asset(asset_name)
+            if retrieved_asset:
+                self.add_asset(retrieved_asset)
+            else:
+                print(f"No asset named {asset_name} found in rig storage.")
 
     def hardware_patch(self):
         """
