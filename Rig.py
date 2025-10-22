@@ -82,6 +82,18 @@ class Rig:
         else:
             print("Insufficient CryptoTokens to repair rig.")
 
+    def upgrade_rig(self, hacker):
+        """
+        Upgrade the rig using a Hardware Patch from the hacker's inventory.
+        :parameter hacker:
+        hacker (Hacker): The hacker who owns the rig.
+        """
+        hardware_patch = hacker.remove_asset_by_name("Hardware Patch")
+        if hardware_patch is not None:
+            self.__upgrade_level += 1
+            print(f"Rig {self.__name} upgraded to Level {self.__upgrade_level}.")
+        else:
+            print("No Hardware Patch available for upgrade.")
 
     def generate_assets(self):
         """
