@@ -39,6 +39,19 @@ class Rig:
     def get_upgrade_level(self):
         return self.__upgrade_level
 
+    def get_condition(self):
+        """
+        Return the rig's current condition.
+
+        :returns:
+        str: A formatted string such as "Immaculate (Level 2)" or "Splintered (Level 0)".
+
+        Behaviour:
+        - Evaluates the broken state and upgrade level.
+        """
+        rig_condition = "Splintered" if self.__broken_state else "Immaculate"
+        return f"{rig_condition} (Level {self.__upgrade_level})"
+
     def take_damage(self):
         if self.__broken_state:
             print(f"Rig {self.__name} is already broken.")
@@ -64,12 +77,15 @@ class Rig:
             self.__storage.remove("Data Spike")
             print("--- DATA SPIKE LAUNCHED FROM STORAGE ---")
             print(f"--- REMAINING SPIKES IN STORAGE: {self.__storage.count('Data Spike')} ---")
+            return True
         elif self.__data_spikes > 0:
             self.__data_spikes -= 1
             print("*** DATA SPIKE LAUNCHED FROM RIG ***")
             print(f"--- REMAINING SPIKES ATTACHED TO RIG: {self.__data_spikes}")
+            return True
         else:
             print("~~~ NO DATA SPIKES AVAILABLE!!! ~~~")
+            return False
 
     def repair_rig(self, hacker):
         if not self.__broken_state:
@@ -143,25 +159,6 @@ class Rig:
 
 
 
-
-    # def launch_data_spikes(self):
-
-
-
-
-
-rig = Rig("pc_pc(politicallycorrect_pc)")
-print(rig.get_name())
-rig.take_damage()
-# rig.store_data_spikes()
-# print(rig.check_storage())
-# print("---")
-# rig.launch_data_spikes()
-# print(rig.check_storage())
-# rig.launch_data_spikes()
-# print(rig.check_storage())
-# rig.launch_data_spikes()
-# print(rig.check_storage())
 
 
 
