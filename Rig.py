@@ -6,6 +6,8 @@ ID: <student_id>
 Username: <username>
 This is my own work as defined by the University's Academic Misconduct Policy.
 """
+import random
+from Asset import Asset
 
 class Rig:
     def __init__(self, name):
@@ -73,7 +75,7 @@ class Rig:
         if not self.__broken_state:
             print(f"Rig {self.__name} does not require repairs.")
         elif hacker.get_crypto_tokens() >= 1:
-            hacker.crypto_tokens = hacker.get_crypto_tokens() - 1
+            hacker.set_crypto_tokens(hacker.get_crypto_tokens() - 1)
             self.__damage_counter = 0
             self.__broken_state = False
             print(f"Rig {self.__name} has been repaired with 1 CryptoToken.")
@@ -81,15 +83,58 @@ class Rig:
             print("Insufficient CryptoTokens to repair rig.")
 
 
+    def generate_assets(self):
+        """
+        Randomly generate and store a new asset.
+
+        Behaviour:
+        - Adds Data Spike, Security Chip and Removable Drive
+
+        """
+        new_asset = random.choice([
+            Asset("Data Spike", "Used in battles."),
+            Asset("Security Chip", "Used to encrypt/decrypt assets."),
+            Asset("Removable Drive", "Used for extraction.")
+        ])
+        self.__storage.append(new_asset)
+        print(f"{self.__name} generated: {new_asset.get_name()}")
+
+
+    def extract_assets(self, hacker):
+        """
+        Extract all unencrypted assets if rig is broken.
+
+        :parameters hacker:
+        hacker (Hacker): The hacker performing the extraction.
+
+        Behaviour:
+        - Requires one Removable Drive in hacker inventory.
+        - Transfers unencrypted assets to hacker's inventory.
+        """
+        if not self.__broken_state:
+            print(f"Rig {self.__name} is not broken. Extraction unavailable.")
+        else:
+            removable_drive = hacker.remove_asset_by_name("Removable Drive")
+            if removable_drive is None:
+                print("No Removable Drive available for extraction.")
+            else:
+                transferred_assets = 0
+                remaining_assets = []
+                for asset in self.__storage:
+                    if isinstance(asset, Asset) and not asset.is_encrypted():
+                        hacker.add_asset(asset)
+                        transferred_assets += 1
+                    else:
+                        remaining_assets.append(asset)
+                self.__storage = remaining_assets
+                print(f"{transferred_assets} asset(s) extracted from {self.__name}.")
+
 
 
 
     # def launch_data_spikes(self):
 
 
-    # def repair_rig(self):
-    #     hacker.get_crypto_tokens()
-    #     print("Current CryptoTokens: ",hacker.get_crypto_tokens())
 
 
 
