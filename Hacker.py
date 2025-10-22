@@ -32,6 +32,7 @@ class Hacker:
         self.__crypto_tokens = 1 # Hacker inventory stores 1 CryptoToken.
         self.__rig = None # Rig begins inactive, until activated.
         self.__trace_level = 0 # Trace level baseline value is set to 0.
+        self.__inventory = [] # Store asset in inventory.
 
 # Accessor (Getter) methods
     def get_trace_level(self):
@@ -210,6 +211,42 @@ class Hacker:
             print("No rig linked to upgrade.")
         else:
             self.__rig.upgrade_rig(self)
+
+    def add_asset(self, asset):
+        """
+        Add an Asset istance to hacker inventory.
+        """
+        if isinstance(asset, Asset):
+            self.__inventory.append[asset]
+            print(f"{asset.get_name()} added to inventory.")
+        else:
+            print("Only Asset instances can be added to inventory.")
+
+    def remove_asset_by_name(self, asset_name):
+        """
+        Remove the first asset matching name from inventory and return it.
+        Returns None if not found.
+        """
+        available_asset = None
+        new_inventory = []
+        for asset in self.__inventory:
+            if available_asset is None and asset.get_name() == asset_name:
+                available_asset = asset
+            else:
+                new_inventory.append(asset)
+        self.__inventory = new_inventory
+        return available_asset
+
+    def hardware_patch(self):
+        """
+        Acquire a Hardware Patch (Hacker domain) abd place it in inventory.
+        """
+        hardware_patch = Asset("Hardware Patch", "Used to upgrade rigs.")
+        self.add_asset(hardware_patch)
+        print(f"{self.__name} obtained a Hardware Patch")
+
+
+
 
 
 # Test method
