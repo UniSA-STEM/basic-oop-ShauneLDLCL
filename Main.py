@@ -9,9 +9,10 @@ This is my own work as defined by the University's Academic Misconduct Policy.
 
 from Hacker import Hacker
 from Rig import Rig
+from Asset import Asset
 
 # 1. Instantiate the Hacker and Rig objects.
-print("*---- HACKER AND RIG INITIALISATION ----*")
+print("------------- HACKER AND RIG INITIALISATION -------------")
 hacker = Hacker("AnonShortforAnonymous")
 rig = Rig("pc_pc(politcallycorrect_pc)")
 print(hacker.get_name())
@@ -19,7 +20,7 @@ print(rig.get_name())
 print(20*"___")
 
 # 2. Display Initial Hacker state before rig activation.
-print("*---- INITIAL STATUS ----*")
+print("------------- INITIAL STATUS -------------")
 print("Hacker Name: ", hacker.get_name())
 print("CryptoTokens: ", hacker.get_crypto_tokens())
 print("Rig Activated: ", hacker.get_rig())
@@ -27,14 +28,14 @@ print("Trace Level: ", hacker.get_trace_level())
 print(20*"___")
 
 # 3. Activate the rig using the Hacker's CryptoTokens.
-print("*---- RIG ACTIVATION ----*")
+print("------------- RIG ACTIVATION -------------")
 hacker.acquire_rig(rig)
 print(f"Rig Activated: {'ACTIVE' if hacker.is_rig_active() else 'INACTIVE'}")
 print("Remaining Tokens: ", hacker.get_crypto_tokens())
 print(20*"___")
 
 # 4. Execute hacking operations that increase trace level and transfer CryptoTokens to inventory.
-print("*---- RISKY HACKING ACTIONS ----*")
+print("------------- RISKY HACKING ACTIONS -------------")
 hacker.byte_bomb()
 hacker.neural_hack()
 hacker.server_attack()
@@ -46,8 +47,8 @@ print("Trace Level after risky actions: ", hacker.get_trace_level())
 print("CryptoTokens after risky actions: ", hacker.get_crypto_tokens())
 print(20*"___")
 
-# 5. Execute concealment operations to reduce trace level.
-print("*---- CONCEALMENT ACTIONS ----*")
+# 5. Perform concealment operations to reduce trace level.
+print("------------- CONCEALMENT ACTIONS -------------")
 hacker.corrupt_logs()
 hacker.memory_wipe()
 hacker.ghost_protocol()
@@ -56,14 +57,25 @@ hacker.corrupt_logs()
 print("Trace level after concealment actions: ", hacker.get_trace_level())
 print(20*"___")
 
-# 6. Demonstrate Rig storage functionality.
-print("*---- RIG STORAGE TEST ----*")
+# 6. Store and launch Data Spikes from the rig.
+print("------------- RIG STORAGE TEST & ATTACK TEST -------------")
 rig.store_data_spikes()
 print("Rig Storage Contents: ", rig.get_storage())
-print("Remaining Data Spikes on Rig: ", rig.get_data_spikes())
+hacker.launch_data_attack(rig)
 print(20*"___")
 
-# 7. Demonstrate attack interaction between Hacker and Rig.
-print("*---- HACKER|RIG ATTACK INTERACTION ----*")
-print(hacker.launch_data_attack(rig))
+# 7. Upgrade, repair, and extract assets.
+print("------------- RIG MAINTENANCE & UPGRADE -------------")
+hacker.hardware_patch()
+hacker.upgrade_rig()
+hacker.repair_linked_rig()
+
+print(20*"___")
+
+# 8. Generate and encrypt assets to test encryption logic.
+print("------------- ENCRYPTION TEST -------------")
+assets = Asset("Confidential File", "Top Secret Data")
+hacker.add_asset(assets)
+assets.encrypt()
+assets.decrypt()
 print(20*"___")
