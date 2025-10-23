@@ -62,8 +62,9 @@ class Rig:
 
     def store_data_spikes(self):
         if self.__data_spikes > 0:
-            for i in range(self.__data_spikes):
-                self.__storage.append("Data Spike")
+            for spikes in range(self.__data_spikes):
+                spike_asset = Asset("Data Spike", "Used in battles.")
+                self.__storage.append(spike_asset)
             print(f"{self.__data_spikes} data spikes are stored in rig storage.")
             self.__data_spikes = 0
         else:
@@ -73,19 +74,23 @@ class Rig:
         return "Data Spike" in self.__storage
 
     def launch_data_spikes(self):
-        if "Data Spike" in self.__storage:
-            self.__storage.remove("Data Spike")
-            print("--- DATA SPIKE LAUNCHED FROM STORAGE ---")
-            print(f"--- REMAINING SPIKES IN STORAGE: {self.__storage.count('Data Spike')} ---")
-            return True
-        elif self.__data_spikes > 0:
+        for asset in self.__storage:
+            if isinstance(asset, Asset) and asset.get_name() == "Data Spike":
+                self.__storage.remove(asset)
+                print("--- DATA SPIKE LAUNCHED FROM STORAGE ---")
+                remaining_spikes = 0
+                for spikes in self.__storage:
+                    if isinstance(spikes, Asset) and spikes.get_name() == "Data Spike":
+                        remaining_spikes += 1
+                print(f"--- REMAINING SPIKES IN STORAGE: {self.__storage.count('Data Spike')} ---")
+                return True
+        if self.__data_spikes > 0:
             self.__data_spikes -= 1
             print("*** DATA SPIKE LAUNCHED FROM RIG ***")
             print(f"--- REMAINING SPIKES ATTACHED TO RIG: {self.__data_spikes}")
             return True
-        else:
-            print("~~~ NO DATA SPIKES AVAILABLE!!! ~~~")
-            return False
+        print("~~~ NO DATA SPIKES AVAILABLE!!! ~~~")
+        return False
 
     def repair_rig(self, hacker):
         if not self.__broken_state:
@@ -120,12 +125,23 @@ class Rig:
 
         """
         new_asset = random.choice([
-            Asset("Data Spike", "Used in battles."),
             Asset("Security Chip", "Used to encrypt/decrypt assets."),
             Asset("Removable Drive", "Used for extraction.")
         ])
         self.__storage.append(new_asset)
         print(f"{self.__name} generated: {new_asset.get_name()}")
+
+    def display_storage(self, title):
+        """
+        Display the rig's storage in a readable, formatted way.
+        Prints each asset on a separate line using its __str__ method.
+        """
+        print(title)
+        if not self.__storage:
+            print(" - Storage is empty.")
+        else:
+            for asset in self.__storage:
+                print(f" - {asset}")
 
 
     def extract_assets(self, hacker):
@@ -209,7 +225,8 @@ class Rig:
         Return a formatted string representation of the rig.
         Behaviour:
         - Displays the rig's name, condition (Immaculate/Splintered), upgrade level, and stored assets.
-        :returns
+
+        returns
         str: Readable summary of the rig's current condition and storage
         """
         condition_status = self.get_condition()
