@@ -55,9 +55,13 @@ class Rig:
     def take_damage(self):
         if self.__broken_state:
             print(f"Rig {self.__name} is already broken.")
-        else:
-            self.__damage_counter += 1
-            print(f"Rig {self.__name} took damage! Current Damage: {self.__damage_counter}")
+        self.__damage_counter += 1
+        print(f"Rig {self.__name} took damage! Current Damage: {self.__damage_counter}")
+        upgrade_threshold = 2 + self.__upgrade_level
+        if self.__damage_counter >= upgrade_threshold:
+            self.__broken_state = True
+            print(f"Rig {self.__name} has become broken!")
+
 
 
     def store_data_spikes(self):
