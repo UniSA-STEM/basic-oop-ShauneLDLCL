@@ -338,6 +338,26 @@ class Hacker:
         self.add_asset(hardware_patch)
         print(f"{self.__name} obtained a Hardware Patch")
 
+    def __str__(self):
+        """
+        Return a formatted string representation of the hacker.
+
+        Behaviour:
+        - Displays the hacker's name, linked rig name ('No Rig' if none),
+        current trace level, and inventory contents.
+
+        :returns
+        str: Readable summary of the hacker's current state.
+        """
+        rig_name = self.__rig.get_name() if self.__rig else "No Rig"
+        inventory_list = ", ".join(str(asset) for asset in self.__inventory) if self.__inventory else "Empty"
+        return (
+            f"Hacker: {self.__name}\n"
+            f"Rig: {rig_name}\n"
+            f"Trace Level: {self.__trace_level}\n"
+            f"Inventory: {inventory_list}"
+        )
+
 
 
 
