@@ -204,4 +204,20 @@ class Rig:
             print(f"No asset named {asset_name} found in {self.__name}.")
         return released_asset
 
+    def __str__(self):
+        """
+        Return a formatted string representation of the rig.
+        Behaviour:
+        - Displays the rig's name, condition (Immaculate/Splintered), upgrade level, and stored assets.
+        :returns
+        str: Readable summary of the rig's current condition and storage
+        """
+        condition_status = self.get_condition()
+        store_assets_list = ", ".join(str(asset) for asset in self.__storage)
+        return (
+            f"Rig: {self.__name}\n"
+            f"Condition: {condition_status}\n"
+            f"Upgrade Level: {self.__upgrade_level}\n"
+            f"Stored Assets: {store_assets_list}"
+        )
 
