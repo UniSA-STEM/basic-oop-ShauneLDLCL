@@ -10,23 +10,23 @@ from Rig import Rig
 from Asset import Asset
 class Hacker:
     """
-    Represents a hacker with a crypto token, rig activation, and a trace system
+    Represents a hacker with a crypto token, optional linked rig, and a trace system
     that tracks digital exposure from performing high-risk actions.
 
-        Attributes
-        __name (str): The hacker's chosen alias or display name
-        __crypto_tokens (int): The amount of digital currency available to the hacker.
-        __rig (bool): Indicates whethere the hacker's rig is active or inactive.
-        __trace_level (int): A measure of the risk of exposure. Increases when actions are risky
-        and reduces when concealment actions are executed.
+    Attributes:
+        __name (str): Alias of the hacker.
+        __crypto_tokens (int): Digital currency for purchases/repairs.
+        __rig (Rig | None): Linked rig instance when acquired.
+        __trace_level (int): Current exposure level.
+        __inventory (list[Asset]): Items the hacker currently holds.
     """
 
     def __init__(self, name):
         """
         Initialise a new Hacker instance with default starting values.
 
-        :parameter
-        __name (str): A unique identifier or alias for the hacker.
+        :parameter name:
+        str: A unique identifier or alias for the hacker.
         """
         self.__name = name
         self.__crypto_tokens = 1 # Hacker inventory stores 1 CryptoToken.
@@ -34,7 +34,7 @@ class Hacker:
         self.__trace_level = 0 # Trace level baseline value is set to 0.
         self.__inventory = [] # Store asset in inventory.
 
-# Accessor (Getter) methods
+# ---------- Acessors ----------
     def get_trace_level(self):
         """
         Return the current trace level of the hacker.
@@ -55,7 +55,7 @@ class Hacker:
         """
         Return the number of CryptoTokens currently owned.
 
-        :returns:
+        :returns
         int: The total number of CryptoTokens in hacker's inventory.
         """
         return self.__crypto_tokens # Access and return current amount of CryptoTokens possessed by the hacker.
@@ -69,12 +69,24 @@ class Hacker:
         """
         return self.__rig # Access and return whether the hacker's rig is activated (True/False).
 
-    # Setter (Mutator) methods
+    # ---------- Mutators ----------
 
     def set_crypto_tokens(self, tokens):
+        """
+        Set the exact number of CryptoTokens (used by repair/awards).
+
+        :parameter tokens:
+        int: New token count.
+        """
         self.__crypto_tokens = tokens
 
     def deduct_crypto_tokens(self, amount):
+        """
+        Deduct CryptoTokens safely if enough are available.
+
+        :parameter amount:
+        int: Amount to deduct (>= 0).
+        """
         if self.__crypto_tokens >= amount:
             self.__crypto_tokens -= amount
         else:
@@ -90,7 +102,7 @@ class Hacker:
         - Prints a notification if the trace level reaches zero (Hacker is safe/undetected).
 
         :parameter trace_level:
-        trace_level (int): The new trace level value to assign.
+        int: The new trace level value to assign.
         :returns:
         None
         """
@@ -102,24 +114,21 @@ class Hacker:
         if self.__trace_level == 0:
             print("Trace level has successfully reached 0 and you are impossible to detect.")
 
-#     Property
+    # Property
     crypto_tokens = property(get_crypto_tokens, set_crypto_tokens)
 
-# Acquire rig method
+    # ---------- Rig lifecycle ----------
     def acquire_rig(self, rig):
         """
         Attempt to activate the hacker's rig by spending one CryptoToken.
 
-        Behaviour
-        If the rig is already active, prints a message and outputs nothing.
-        If at least one CryptoToken is available, deducts one token, activates the rig and changes the state of
-        the rig to True.
-        Otherwise, the hacker is notified of insufficient funds to activate the rig.
+        Behaviour:
+        - Valid rig instance required.
+        - Prevents multiple acquisitions.
+        - Deducts 1 token on success and links the rig.
 
-        :parameter
-        None
-        :returns
-        None
+        :parameter rig:
+        Rig: The rig to link.
         """
         if isinstance(self.__rig, Rig): # Checks if there is already a rig and prevents multiple rig activations.
             print("Rig has already been activated and linked.")
@@ -136,69 +145,88 @@ class Hacker:
             print("-- INSUFFICIENT FUNDS TO ACTIVATE RIG -- ")
 
     def is_rig_active(self):
+        """
+        Check for rig activation.
+
+        :returns
+        Rig | None: Linked rig or None.
+        """
         return self.__rig
 
     def repair_linked_rig(self):
+        """
+        Repair the linked rig (if activated), consuming 1 CryptoToken when broken.
+        """
         if not self.__rig:
             print("No rig linked to repair.")
         else:
             self.__rig.repair_rig(self)
 
-
+    # ---------- Risky actions (trace level)  ----------
 
     def byte_bomb(self):
+        self.__trace_level += 3
         if self.__trace_level >= 7:
-            self.__trace_level += 3
             print("!!! REDUCE TRACE !!!\n-- YOU HAVE BEEN EXPOSED --")
-        elif self.__trace_level < 7:
-            self.__trace_level += 3
+        else:
             print("*** BYTE BOMB INITIATED ***")
             if self.__trace_level == 7:
                 self.__crypto_tokens += 1
                 print(f"<<< Transferring CryptoTokens into inventory: {self.__crypto_tokens} >>>")
-            # elif self.__trace_level > 7:
-            #     self.__trace_level += 3
-            #     print("!!! REDUCE TRACE !!!\n-- YOU HAVE BEEN EXPOSED --")
 
     def neural_hack(self):
+        self.__trace_level += 2
         if self.__trace_level >= 7:
-            self.__trace_level += 2
             print("!!! REDUCE TRACE !!!\n-- YOU HAVE BEEN EXPOSED --")
-        elif self.__trace_level < 7:
-            self.__trace_level += 2
+        else:
             print("*** NEURAL HACK CONNECTED ***")
             if self.__trace_level == 7:
                 self.__crypto_tokens += 1
                 print(f"<<< Transferring CryptoTokens into inventory: {self.__crypto_tokens} >>>")
-            # elif self.__trace_level > 7:
-            #     self.__trace_level += 2
-            #     print("!!! REDUCE TRACE !!!\n-- YOU HAVE BEEN EXPOSED --")
 
-        # elif self.__trace_level < 7:
-        #     self.__trace_level += 2
-        #     print("*** NEURAL HACK CONNECTED ***")
     def server_attack(self):
+        self.__trace_level += 1
         if self.__trace_level >= 7:
-            self.__trace_level += 1
             print("!!! REDUCE TRACE !!!\n-- YOU HAVE BEEN EXPOSED --")
-        elif self.__trace_level < 7:
-            self.__trace_level += 1
+        else:
             print("*** SERVER ATTACK SUCCESSFULL ***")
             if self.__trace_level == 7:
                 self.__crypto_tokens += 1
                 print(f"<<< Transferring CryptoTokens into inventory: {self.__crypto_tokens} >>>")
-            # elif self.__trace_level > 7:
-            #     self.__trace_level += 1
-            #     print("!!! REDUCE TRACE !!!\n-- YOU HAVE BEEN EXPOSED --")
+
+    # ---------- Concealment  ----------
 
     def ghost_protocol(self):
+        """
+        Reduce trace by 3 using validated setter (non-negative).
+        """
         self.set_trace_level(self.__trace_level - 3)
     def memory_wipe(self):
+        """
+        Reduce trace by 2 using validated setter (non-negative).
+        """
         self.set_trace_level(self.__trace_level - 2)
     def corrupt_logs(self):
+        """
+        Reduce trace by 1 using validated setter (non-negative).
+        """
         self.set_trace_level(self.__trace_level - 1)
 
+    # ---------- Combat  ----------
     def launch_data_attack(self, target_rig):
+        """
+        Launch a stored/attached Data Spike at a target rig.
+
+        :parameter target_rig:
+        Rig: The rig to attack.
+
+        :returns:
+        str: Status string for the caller to display/log.
+
+        Behaviour:
+        - Uses rig.launch_data_spikes() to consume one spike.
+        - On success, applies 1 damage to target_rig.
+        """
         if not self.__rig:
             print ("--- CANNOT LAUNCH ATTACK: NO ACTIVE RIG ---")
             return "--- ATTACK FAILED: NO ACTIVE RIG ---"
@@ -212,7 +240,11 @@ class Hacker:
             return "--- ATTACK INITATED SUCCESSFULLY ---"
         return "--- ATTACK FAILED: NO SPIKES ---"
 
+    # ---------- Inventory  ----------
     def upgrade_rig(self):
+        """
+        Try upgrading the linked rig using a 'Hardware Patch' in inventory.
+        """
         if not self.__rig:
             print("No rig linked to upgrade.")
         else:
@@ -220,7 +252,10 @@ class Hacker:
 
     def add_asset(self, asset):
         """
-        Add an Asset istance to hacker inventory.
+        Add an Asset instance to hacker inventory.
+
+        :parameter asset:
+        Asset: Instance to append (only valid type accepted).
         """
         if isinstance(asset, Asset):
             self.__inventory.append(asset)
@@ -231,7 +266,12 @@ class Hacker:
     def remove_asset_by_name(self, asset_name):
         """
         Remove the first asset matching name from inventory and return it.
-        Returns None if not found.
+
+        :parameter asset_name:
+        str: Case-sensitive name match.
+
+        :returns:
+        Asset | None: Removed asset, or None if not found.
         """
         available_asset = None
         new_inventory = []
@@ -261,11 +301,13 @@ class Hacker:
     def encrypt_asset(self, asset_name):
         """
         Encrypt a named asset in the hacker inventory using a Security Chip.
+
         :parameters asset_name:
-        asset_name: Name of the asset to encrypt
+        str: Name of the asset to encrypt
+
         Behaviour:
         - Consumes one "Security Chip" from inventory.
-        - If the asset is found, encrypts it.
+        - If the asset is found, encrypts it; otherwise returns chip back.
         """
         security_chip = self.remove_asset_by_name("Security Chip")
         if security_chip is None:
@@ -274,7 +316,7 @@ class Hacker:
             assets = self.find_asset(asset_name)
             if assets is None:
                 print(f"No Asset named: {asset_name} found in inventory.")
-                self.add_asset(security_chip)
+                self.add_asset(security_chip) # Return chip.
             else:
                 assets.encrypt()
                 print(f"{asset_name} encrypted successfully.")
@@ -283,8 +325,9 @@ class Hacker:
     def decrypt_asset(self, asset_name):
         """
         Decrypt a named asset in the hacker inventory using a Security Chip.
+
         :parameter asset_name:
-        asset_name: Name of the asset to decrypt
+        str: Name of the asset to decrypt
         """
         assets = self.find_asset(asset_name)
         if assets is None:
@@ -297,14 +340,15 @@ class Hacker:
                 if security_chip is None:
                     print("No Security Chip available to decrypt.")
                 else:
-                    asset.decrypt()
+                    assets.decrypt()
                     print(f"{asset_name} decrypted successfully.")
 
     def store_asset_in_rig(self, asset_name):
         """
         Move an asset from hacker inventory to linked rig storage.
+
         :param asset_name:
-        asset_name: Name of the asset to move.
+        str: Name of the asset to move.
         """
         if not self.__rig:
             print("No rig linked. Cannot store asset.")
@@ -319,7 +363,8 @@ class Hacker:
         """
         Retrieve an asset from rig storage back to hacker inventory.
         :parameter asset_name:
-        asset_name: Name of the asset to retrieve.
+
+        str: Name of the asset to retrieve.
         """
         if not self.__rig:
             print("No rig linked. Cannot retrieve asset.")
@@ -332,9 +377,9 @@ class Hacker:
 
     def hardware_patch(self):
         """
-        Acquire a Hardware Patch (Hacker domain) abd place it in inventory.
+        Create a Hardware Patch (Hacker domain) abd place it in inventory.
         """
-        hardware_patch = Asset("Hardware Patch", "Used to upgrade rigs.")
+        hardware_patch = Asset("Hardware Patch", "Used to upgrade rigs")
         self.add_asset(hardware_patch)
         print(f"{self.__name} obtained a Hardware Patch")
 
@@ -346,7 +391,7 @@ class Hacker:
         - Displays the hacker's name, linked rig name ('No Rig' if none),
         current trace level, and inventory contents.
 
-        :returns
+        :returns:
         str: Readable summary of the hacker's current state.
         """
         rig_name = self.__rig.get_name() if self.__rig else "No Rig"
