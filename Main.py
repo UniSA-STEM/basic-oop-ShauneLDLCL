@@ -1,6 +1,12 @@
 """
 File: main.py
 Description: Simulation and testing of the Hacker, Rig, and Asset classes.
+This file demonstrates the system's full functionality of the system.
+It instantiates hackers, rigs, and assets, and simulates key interactions such as
+rig activation, upgrades, battles, encryption/decryption, and trace management.
+Edge cases are also tested, including attempts to upgrade without a rig,
+encrypt without a Security Chip, and attack under high trace conditions.
+as it instantiates hackers, rigs, and assets
 Author: Shaune Legayada
 ID: 110444251
 Username: legsd001
@@ -173,7 +179,34 @@ hacker.decrypt_asset("Confidential File")
 print(20 * "___")
 
 # _______________________________________________________
-# 12. ENCRYPTION AND EDGE CASES
+# 13. ENCRYPTION AND EDGE CASES
+# _______________________________________________________
+
+print("------------- STORAGE CAPACITY UPGRADE TEST -------------")
+# Check that rig storage capacity increases with upgrades.
+
+# Fill storage close to its limit (base = 3 items at Level 0).
+print("Filling storage to base limit...")
+for file_num in range(4):  # 4th item should exceed the limit
+    rig.store_asset(Asset(f"File {file_num + 1}", "Test Data"))
+
+print(f"Stored items before upgrade: {len(rig.get_storage())}")
+
+# Upgrade the rig to unlock extra capacity.
+print("\nUpgrading rig to expand storage capacity...")
+hacker.hardware_patch()
+hacker.upgrade_rig()
+
+# Add more files after upgrade (capacity should now allow more).
+for file_num in range(4, 6):
+    rig.store_asset(Asset(f"File {file_num + 1}", "Post-upgrade data"))
+
+print(f"Stored items after upgrade: {len(rig.get_storage())}")
+rig.display_storage("Rig Storage After Upgrade:")
+print(20 * "___")
+
+# _______________________________________________________
+# 14. ENCRYPTION AND EDGE CASES
 # _______________________________________________________
 print("------------- FINAL SYSTEM STATE -------------")
 # Displays the end-state of both Hacker and Rig objects.
