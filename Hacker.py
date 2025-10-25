@@ -1,6 +1,11 @@
 """
 File: Hacker.py
-Description: <A brief description of this Python module.>
+Description: Represents a cyberpunk hacker within the digital underworld simulation.
+Theb Hacker class models a cyber-operative capable of activating rigs,
+performing high-risk digital attacks, managing CryptoTokens, and handling
+encrypted or unencrypted assets. It encapsulates behaviour for trace management,
+rig upgrades, encryption/decryption, and secure storage interactions with the associated Rig.
+This class serves as the primaty actor that coordinates actions and resources across the system.
 Author: Shaune Legayada
 ID: 110444251
 Username: legsd001

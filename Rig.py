@@ -1,9 +1,14 @@
 """
 File: Rig.py
-Description: <A brief description of this Python module.>
-Author: <full name>
-ID: <student_id>
-Username: <username>
+Description: Represents a hacker's rig responsible for managing on-rig asset storage,
+damage tracking, condition reporting, and rig upgrades. The Rig class encapsulates
+the behaviour of rig-hosted assets such as Data Spikes, Security Chips, and Removable Drives.
+It provides functionality for generating, storing, and releasing assets;
+managing durability through damage counters; determining broken states;
+and supporting repair and upgrade operations through controlled interaction with the Hacker class.
+Author: Shaune Legayada
+ID: 110444251
+Username: legsd001
 This is my own work as defined by the University's Academic Misconduct Policy.
 """
 import random

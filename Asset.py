@@ -1,9 +1,14 @@
 """
 File: Asset.py
-Description: <A brief description of this Python module.>
-Author: <full name>
-ID: <student_id>
-Username: <username>
+Description: Represents a digital asset within the hacker's or rig's inventory.
+The Asset class models encrypted and unencrypted data items such as Hardware Patches,
+Security Chips, Data Spikes, and Removable Drives. Assets can be encrypted or decrypted
+to protect information, transferred between hacker and rig storage, and consumed during
+upgrades or extraction processes. This class demonstrates encapsulation and state management
+within the system.
+Author: Shaune Legayada
+ID: 110444251
+Username: legsd001
 This is my own work as defined by the University's Academic Misconduct Policy.
 """
 
